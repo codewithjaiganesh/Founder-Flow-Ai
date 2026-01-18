@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FounderFlowAI - Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- Loading overlay -->
+  <div id="loading" style="
+    position:fixed; inset:0;
+    display:grid; place-items:center;
+    background:#0b1220; color:#c7d2fe;
+    z-index:9999; font-family:Arial;
+  ">Checking login...</div>
+
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <img src="assets/logo.png" class="brandLogoImg" alt="FounderFlowAI Logo">
+        <div class="brandText">
+          <h1>FounderFlowAI</h1>
+          <p id="userEmail">Loading...</p>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <button class="navBtn active" data-tab="home">🏠 Home</button>
+        <button class="navBtn" data-tab="complaints">🛟 Complaint Resolver</button>
+        <button class="navBtn" data-tab="sales">💬 AI Sales Assistant</button>
+        <button class="navBtn" data-tab="marketing">📈 AI Marketing</button>
+        <button class="navBtn" data-tab="receipts">🧾 Receipt AI</button>
+
+        <!-- ✅ MVP SHOW MODULES -->
+        <div class="navDivider">MVP Modules</div>
+        <button class="navBtn" data-tab="feedback">📊 Feedback Analyzer</button>
+        <button class="navBtn" data-tab="coldemail">✉️ Cold Email Automation</button>
+        <button class="navBtn" data-tab="whatsapp">💚 WhatsApp Broadcast</button>
+        <button class="navBtn" data-tab="churn">⚠️ Churn Alerts</button>
+        <button class="navBtn" data-tab="inventory">📦 Inventory</button>
+        <button class="navBtn" data-tab="refunds">💰 Refund Dashboard</button>
+      </nav>
+
+      <div class="sidebarFooter">
+        <button id="logoutBtn" class="secondary logoutBtn">Logout</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h2 id="pageTitle">Home</h2>
+          <p class="muted" id="pageSub">Welcome to your AI dashboard.</p>
+        </div>
+        <div class="topbarRight">
+          <span class="tinyPill" id="businessModePill">Mode: —</span>
+          <span class="tinyPill">Mindset Makers</span>
+          <span class="tinyPill">GDG on Campus</span>
+        </div>
+      </header>
+
+      <section class="content">
+
+        <!-- ✅ HOME TAB -->
+        <div class="tab active" id="tab-home">
+          <div class="kpiGrid">
+
+            <div class="kpiCard" data-go="complaints" data-tip="Open Complaint Resolver">
+              <div class="kpiTop"><span class="kpiIcon">🛟</span><span class="kpiLabel">Total Complaints</span></div>
+              <div class="kpiValue" id="kpiComplaints">0</div>
+              <div class="kpiSub">AI support resolutions created</div>
+            </div>
+
+            <div class="kpiCard" data-go="receipts" data-tip="Open Receipt AI">
+              <div class="kpiTop"><span class="kpiIcon">🧾</span><span class="kpiLabel">Total Receipts Added</span></div>
+              <div class="kpiValue" id="kpiReceipts">0</div>
+              <div class="kpiSub">Bills recorded</div>
+            </div>
+
+            <div class="kpiCard" data-go="receipts" data-tip="Open Receipt AI">
+              <div class="kpiTop"><span class="kpiIcon">💰</span><span class="kpiLabel">Total Sales (₹)</span></div>
+              <div class="kpiValue">₹ <span id="kpiSalesAmount">0</span></div>
+              <div class="kpiSub">Total receipt value</div>
+            </div>
+
+            <div class="kpiCard" data-go="refunds" data-tip="Open Refund Dashboard (MVP)">
+              <div class="kpiTop"><span class="kpiIcon">↩️</span><span class="kpiLabel">Refunds Today</span></div>
+              <div class="kpiValue" id="kpiRefundsToday">0</div>
+              <div class="kpiSub">Return/refund issues today</div>
+            </div>
+
+            <div class="kpiCard" data-go="inventory" data-tip="Open Inventory (MVP)">
+              <div class="kpiTop"><span class="kpiIcon">📦</span><span class="kpiLabel">Inventory Shortage</span></div>
+              <div class="kpiValue" id="kpiInventory">No</div>
+              <div class="kpiSub">Stock warning alerts</div>
+            </div>
+
+            <div class="kpiCard" data-go="marketing" data-tip="Open AI Marketing">
+              <div class="kpiTop"><span class="kpiIcon">📅</span><span class="kpiLabel">Marketing Scheduled</span></div>
+              <div class="kpiValue" id="kpiColdEmails">0</div>
+              <div class="kpiSub">Posts/campaigns scheduled</div>
+            </div>
+
+            <div class="kpiCard" data-go="feedback" data-tip="Open Feedback Analyzer (MVP)">
+              <div class="kpiTop"><span class="kpiIcon">⭐</span><span class="kpiLabel">Google Review Score</span></div>
+              <div class="kpiValue"><span id="kpiReviewScore">5.0</span> / 5</div>
+              <div class="kpiSub">Customer satisfaction</div>
+            </div>
+
+            <div class="kpiCard" data-go="home" data-tip="MVP leaderboard">
+              <div class="kpiTop"><span class="kpiIcon">🏆</span><span class="kpiLabel">Business Rank</span></div>
+              <div class="kpiValue" id="kpiRank">#20</div>
+              <div class="kpiSub">Rank in FounderFlowAI</div>
+            </div>
+
+            <div class="kpiCard kpiWide" data-go="churn" data-tip="Open Churn Alerts (MVP)">
+              <div class="kpiTop"><span class="kpiIcon">⚠️</span><span class="kpiLabel">Customer Churn Alerts</span></div>
+              <div class="kpiValue" id="kpiChurn">0</div>
+              <div class="kpiSub">Customers likely to leave soon</div>
+            </div>
+
+          </div>
+
+          <div class="card" style="margin-top:14px;">
+            <h3>FounderFlowAI</h3>
+            <p class="muted">
+              AI Business OS for SaaS, eCommerce and small business owners — complaint resolver, marketing automation,
+              receipts + upcoming ops modules in one platform.
+            </p>
+          </div>
+        </div>
+
+        <!-- ✅ Complaint tab -->
+        <div class="tab" id="tab-complaints">
+          <div class="card">
+            <h3>Customer Complaint Resolver</h3>
+            <p class="muted">Paste customer complaint and generate professional AI solution.</p>
+
+            <textarea id="complaintInput" placeholder="Example: My product arrived damaged and support not responding..."></textarea>
+
+            <div class="row">
+              <button id="complaintGenBtn">Generate Resolution</button>
+              <button class="secondary" id="complaintCopyBtn" disabled>Copy Reply</button>
+            </div>
+
+            <p class="status" id="complaintStatus"></p>
+          </div>
+
+          <div class="grid2">
+            <div class="card">
+              <h4>AI Summary</h4>
+              <div class="pillRow">
+                <span class="pill" id="sentimentPill">Sentiment: —</span>
+                <span class="pill" id="priorityPill">Priority: —</span>
+                <span class="pill" id="categoryPill">Category: —</span>
+              </div>
+            </div>
+
+            <div class="card">
+              <h4>Suggested Action</h4>
+              <pre id="complaintAction">—</pre>
+            </div>
+          </div>
+
+          <div class="card">
+            <h4>Professional Reply</h4>
+            <pre id="complaintReply">—</pre>
+          </div>
+        </div>
+
+        <!-- ✅ Sales tab -->
+        <div class="tab" id="tab-sales">
+          <div class="card">
+            <h3>AI Sales Assistant</h3>
+            <p class="muted">Enter product + customer type and get sales pitch + WhatsApp message.</p>
+
+            <div class="grid2">
+              <div>
+                <label>Product / Service</label>
+                <input id="productInput" placeholder="Example: Protein Powder (Whey)" />
+              </div>
+              <div>
+                <label>Customer Type</label>
+                <input id="customerInput" placeholder="Example: Gym beginner / college student / working professional" />
+              </div>
+            </div>
+
+            <div class="row">
+              <button id="salesGenBtn">Generate Sales Copy</button>
+              <button class="secondary" id="salesCopyBtn" disabled>Copy WhatsApp Message</button>
+            </div>
+
+            <p class="status" id="salesStatus"></p>
+          </div>
+
+          <div class="grid2">
+            <div class="card">
+              <h4>Sales Pitch</h4>
+              <pre id="salesPitch">—</pre>
+            </div>
+            <div class="card">
+              <h4>WhatsApp Message</h4>
+              <pre id="salesWhatsApp">—</pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- ✅ AI Marketing tab -->
+        <div class="tab" id="tab-marketing">
+          <div class="card">
+            <h3>📈 AI Marketing</h3>
+            <p class="muted">Generate Instagram post captions + schedule them with calendar view.</p>
+          </div>
+
+          <div class="grid2" style="margin-top:14px;">
+            <div class="card">
+              <h3>📸 Instagram Post Scheduler (MVP)</h3>
+
+              <div class="grid2">
+                <div>
+                  <label>Post Topic</label>
+                  <input id="igTopic" placeholder="Example: Flash sale / Offer / Review" />
+                </div>
+                <div>
+                  <label>Target Audience</label>
+                  <input id="igAudience" placeholder="Example: SaaS founders / Ecommerce buyers" />
+                </div>
+              </div>
+
+              <div class="grid2" style="margin-top:10px;">
+                <div>
+                  <label>Schedule Date</label>
+                  <input id="igDate" type="date" />
+                </div>
+                <div>
+                  <label>Schedule Time</label>
+                  <input id="igTime" type="time" />
+                </div>
+              </div>
+
+              <div class="row" style="margin-top:10px;">
+                <button id="igGenBtn">Generate IG Post</button>
+                <button class="secondary" id="igScheduleBtn" disabled>Schedule Post</button>
+              </div>
+
+              <p class="status" id="igStatus"></p>
+            </div>
+
+            <div class="card">
+              <h3>👀 Post Preview</h3>
+              <div class="igPreview">
+                <div class="igTop">
+                  <div class="igAvatar"></div>
+                  <div class="igName">
+                    <div class="igUser">FounderFlowAI</div>
+                    <div class="igMeta">Scheduled Instagram Post</div>
+                  </div>
+                </div>
+                <div class="igImage">
+                  <div class="igImageText">Your Image / Reel Preview</div>
+                </div>
+                <div class="igBody">
+                  <div class="igActions">❤️ &nbsp;&nbsp;💬 &nbsp;&nbsp;📤 &nbsp;&nbsp;🔖</div>
+                  <div class="igCaption" id="igCaptionPreview">Caption will appear here…</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:14px;">
+            <h3>📅 Scheduled Posts</h3>
+            <div class="tableWrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Topic</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="igTable"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:14px;">
+            <div class="calHeader">
+              <h3 style="margin:0;">🗓️ Calendar View</h3>
+
+              <div class="calControls">
+                <button class="secondary" id="calPrevBtn">←</button>
+                <span class="tinyPill" id="calMonthLabel">Month</span>
+                <button class="secondary" id="calNextBtn">→</button>
+              </div>
+            </div>
+
+            <p class="muted" style="margin-top:8px;">Calendar auto shows scheduled posts.</p>
+
+            <div class="calendarWrap">
+              <div class="calendarWeekdays">
+                <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+              </div>
+              <div class="calendarGrid" id="calendarGrid"></div>
+            </div>
+
+            <div class="calDayBox">
+              <h4 style="margin:0 0 8px;">📌 Selected Day</h4>
+              <div class="muted" id="calSelectedLabel">Click a date to see posts</div>
+              <div class="calEvents" id="calEvents"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ✅ Receipts tab -->
+        <div class="tab" id="tab-receipts">
+          <div class="card">
+            <h3>Receipt AI (MVP)</h3>
+            <p class="muted">Add receipt entries and view totals.</p>
+
+            <div class="grid2">
+              <div>
+                <label>Customer Name</label>
+                <input id="rCustomer" placeholder="Example: Rahul" />
+              </div>
+              <div>
+                <label>Bill Amount (₹)</label>
+                <input id="rAmount" type="number" placeholder="Example: 499" />
+              </div>
+            </div>
+
+            <div class="row">
+              <button id="receiptAddBtn">Add Receipt</button>
+              <button class="secondary" id="receiptClearBtn">Clear All</button>
+            </div>
+          </div>
+
+          <div class="grid2">
+            <div class="card">
+              <h4>Total Sales</h4>
+              <p class="big">₹ <span id="totalSales">0</span></p>
+            </div>
+            <div class="card">
+              <h4>Total Bills</h4>
+              <p class="big" id="totalBills">0</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <h4>Receipt Table</h4>
+            <div class="tableWrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Customer</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody id="receiptTable"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ✅ MVP SHOW TABS -->
+        <div class="tab" id="tab-feedback">
+          <div class="mvpShowCard">
+            <h3>📊 Feedback Analyzer (MVP Demo)</h3>
+            <p class="muted">Analyze reviews and find top complaints & improvements.</p>
+            <div class="mvpBullets">
+              ✅ Sentiment score<br>
+              ✅ Top positives / negatives<br>
+              ✅ Filter by rating<br>
+              ✅ Reason behind low ratings
+            </div>
+            <div class="mvpFakeChart">📈 Sentiment Chart Preview (Demo)</div>
+          </div>
+        </div>
+
+        <div class="tab" id="tab-coldemail">
+          <div class="mvpShowCard">
+            <h3>✉️ Cold Email Automation (MVP Demo)</h3>
+            <p class="muted">Generate personalized cold emails + track outreach.</p>
+            <div class="mvpBullets">
+              ✅ Email generator<br>
+              ✅ Follow-up templates<br>
+              ✅ Campaign tracking<br>
+              ✅ Auto personalization
+            </div>
+            <div class="mvpFakeChart">📩 Email Campaign Dashboard (Demo)</div>
+          </div>
+        </div>
+
+        <div class="tab" id="tab-whatsapp">
+          <div class="mvpShowCard">
+            <h3>💚 WhatsApp Broadcast (MVP Demo)</h3>
+            <p class="muted">Send offers to customers and track clicks (demo).</p>
+            <div class="mvpBullets">
+              ✅ Bulk WhatsApp messages<br>
+              ✅ Offer templates<br>
+              ✅ Click analytics (demo)<br>
+              ✅ Customer segmentation
+            </div>
+            <div class="mvpFakeChart">💬 Broadcast Analytics (Demo)</div>
+          </div>
+        </div>
+
+        <div class="tab" id="tab-churn">
+          <div class="mvpShowCard">
+            <h3>⚠️ Churn Alerts (MVP Demo)</h3>
+            <p class="muted">Get 30-day warnings before losing customers.</p>
+            <div class="mvpBullets">
+              ✅ Risk score system<br>
+              ✅ Alerts for cancellations<br>
+              ✅ Retention suggestions<br>
+              ✅ Customer health report
+            </div>
+            <div class="mvpFakeChart">⚠️ Retention Report (Demo)</div>
+          </div>
+        </div>
+
+        <div class="tab" id="tab-inventory">
+          <div class="mvpShowCard">
+            <h3>📦 Inventory (MVP Demo)</h3>
+            <p class="muted">Live stock warnings + shortage alerts (demo).</p>
+            <div class="mvpBullets">
+              ✅ Low stock detection<br>
+              ✅ Auto reorder suggestions<br>
+              ✅ Top selling products<br>
+              ✅ Stock alerts
+            </div>
+            <div class="mvpFakeChart">📦 Inventory Monitor (Demo)</div>
+          </div>
+        </div>
+
+        <div class="tab" id="tab-refunds">
+          <div class="mvpShowCard">
+            <h3>💰 Refund Dashboard (MVP Demo)</h3>
+            <p class="muted">Track returns and refund reasons (demo).</p>
+            <div class="mvpBullets">
+              ✅ Refund table view<br>
+              ✅ Product image tracking<br>
+              ✅ Refund reason analytics<br>
+              ✅ Prevention insights
+            </div>
+            <div class="mvpFakeChart">↩️ Refund Analytics (Demo)</div>
+          </div>
+        </div>
+
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

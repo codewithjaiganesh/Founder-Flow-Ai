@@ -1,0 +1,584 @@
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  background: #0b1220;
+  color: #eaf0ff;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  border-right: 1px solid rgba(255,255,255,0.10);
+  padding: 18px;
+  background: rgba(255,255,255,0.04);
+}
+
+.brand { display: flex; gap: 12px; align-items: center; margin-bottom: 18px; }
+.brandLogoImg{
+  width: 48px; height: 48px;
+  border-radius: 14px;
+  object-fit: cover;
+}
+
+.brandText h1 { margin: 0; font-size: 18px; }
+.brandText p { margin: 2px 0 0; font-size: 12px; color: #a7b3d1; }
+
+.nav { display: grid; gap: 10px; margin-top: 10px; }
+.navBtn {
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.12);
+  color: #eaf0ff;
+  padding: 12px 12px;
+  border-radius: 14px;
+  cursor: pointer;
+  text-align: left;
+  font-weight: 650;
+}
+.navBtn:hover { transform: translateY(-1px); }
+.navBtn.active {
+  background: rgba(59,130,246,0.22);
+  border: 1px solid rgba(59,130,246,0.45);
+}
+
+.sidebarFooter { margin-top: 18px; }
+.logoutBtn{
+  width: 100%;
+  padding: 12px 12px;
+  border-radius: 14px;
+}
+
+/* Main */
+.main { padding: 20px; }
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.05);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+.topbar h2 { margin: 0; font-size: 22px; }
+.muted { color: #a7b3d1; margin: 4px 0 0; }
+.topbarRight { display: flex; gap: 10px; flex-wrap: wrap; }
+.tinyPill {
+  font-size: 12px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.18);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+/* Content */
+.content { margin-top: 18px; }
+.tab { display: none; }
+.tab.active { display: block; }
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.22);
+}
+
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+.big { font-size: 36px; font-weight: 900; margin: 10px 0; }
+
+textarea {
+  margin-top: 10px;
+  width: 100%;
+  min-height: 130px;
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(10, 15, 28, 0.6);
+  color: #eaf0ff;
+  outline: none;
+  resize: vertical;
+}
+
+input {
+  width: 100%;
+  margin-top: 6px;
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(10, 15, 28, 0.6);
+  color: #eaf0ff;
+  outline: none;
+}
+label { font-size: 12px; color: #a7b3d1; }
+
+.row { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; align-items: center; }
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-weight: 750;
+  background: #3b82f6;
+  color: white;
+  transition: 0.2s;
+}
+button:hover { transform: translateY(-1px); }
+button.secondary { background: rgba(255,255,255,0.12); }
+button:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+.status { margin-top: 10px; font-size: 14px; color: #c7d2fe; }
+
+pre {
+  margin: 10px 0 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(0,0,0,0.22);
+  line-height: 1.6;
+}
+
+/* Pills */
+.pillRow { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.pill {
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.12);
+  font-size: 12px;
+}
+
+/* Table */
+.tableWrap {
+  overflow-x: auto;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.10);
+}
+table { width: 100%; border-collapse: collapse; }
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+th { color: #a7b3d1; font-size: 12px; letter-spacing: 0.4px; }
+
+@media (max-width: 900px) {
+  .app { grid-template-columns: 1fr; }
+  .sidebar { position: sticky; top: 0; z-index: 5; }
+  .cards { grid-template-columns: 1fr; }
+  .grid2 { grid-template-columns: 1fr; }
+}
+
+/* ==============================
+   ✅ KPI Home Dashboard + Hover + Tooltip
+   ============================== */
+.kpiGrid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.kpiCard{
+  position: relative;
+  border-radius: 18px;
+  padding: 18px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.22);
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+}
+
+.kpiCard::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius: 20px;
+  background: radial-gradient(circle at 30% 20%, rgba(124,58,237,0.35), transparent 40%),
+              radial-gradient(circle at 80% 60%, rgba(59,130,246,0.20), transparent 45%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events:none;
+}
+
+.kpiCard:hover{
+  transform: translateY(-4px);
+  border-color: rgba(124, 58, 237, 0.45);
+  box-shadow: 0 14px 60px rgba(124, 58, 237, 0.18);
+}
+
+.kpiCard:hover::before{ opacity: 1; }
+.kpiCard:active{ transform: translateY(-1px) scale(0.99); }
+
+.kpiTop{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.kpiIcon{
+  width: 38px;
+  height: 38px;
+  display:grid;
+  place-items:center;
+  border-radius: 14px;
+  background: rgba(0,0,0,0.18);
+  border: 1px solid rgba(255,255,255,0.10);
+  font-size: 18px;
+  position: relative;
+  z-index: 1;
+}
+
+.kpiLabel{
+  flex: 1;
+  font-size: 12px;
+  color: rgba(255,255,255,0.70);
+  font-weight: 800;
+  position: relative;
+  z-index: 1;
+}
+
+.kpiValue{
+  font-size: 34px;
+  font-weight: 900;
+  letter-spacing: -0.4px;
+  margin-top: 6px;
+  position: relative;
+  z-index: 1;
+}
+
+.kpiSub{
+  margin-top: 6px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.50);
+  line-height: 1.5;
+  position: relative;
+  z-index: 1;
+}
+
+.kpiWide{ grid-column: span 3; }
+
+/* Tooltip */
+.kpiCard::after{
+  content: attr(data-tip);
+  position: absolute;
+  left: 16px;
+  bottom: 14px;
+  transform: translateY(8px);
+  opacity: 0;
+
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.85);
+
+  padding: 8px 10px;
+  border-radius: 999px;
+
+  background: rgba(0,0,0,0.35);
+  border: 1px solid rgba(255,255,255,0.14);
+  backdrop-filter: blur(10px);
+
+  transition: 0.2s ease;
+  pointer-events: none;
+}
+
+.kpiCard:hover::after{
+  opacity: 1;
+  transform: translateY(0px);
+}
+
+/* Responsive KPI */
+@media(max-width: 900px){
+  .kpiGrid{ grid-template-columns: repeat(2, 1fr); }
+  .kpiWide{ grid-column: span 2; }
+}
+@media(max-width: 620px){
+  .kpiGrid{ grid-template-columns: 1fr; }
+  .kpiWide{ grid-column: span 1; }
+}
+
+/* ==============================
+   ✅ Instagram Preview Card
+   ============================== */
+.igPreview{
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(0,0,0,0.25);
+}
+
+.igTop{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  padding: 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.igAvatar{
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(124,58,237,0.9), rgba(59,130,246,0.9));
+  border: 2px solid rgba(255,255,255,0.14);
+}
+
+.igName{ display:flex; flex-direction: column; gap: 2px; }
+.igUser{ font-weight: 800; font-size: 13px; }
+.igMeta{ font-size: 12px; color: rgba(255,255,255,0.55); }
+
+.igImage{
+  height: 220px;
+  display:grid;
+  place-items:center;
+  background: radial-gradient(circle at 30% 20%, rgba(124,58,237,0.35), transparent 40%),
+              rgba(255,255,255,0.04);
+}
+
+.igImageText{
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(255,255,255,0.65);
+  padding: 10px 12px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.25);
+  border: 1px solid rgba(255,255,255,0.10);
+}
+
+.igBody{ padding: 14px; }
+.igActions{ font-size: 18px; margin-bottom: 10px; }
+.igCaption{
+  white-space: pre-wrap;
+  font-size: 13px;
+  line-height: 1.55;
+  color: rgba(255,255,255,0.80);
+}
+/* ==============================
+   ✅ Calendar View (Premium SaaS Style)
+   ============================== */
+
+.calHeader{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.calControls{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+}
+
+#calMonthLabel{
+  min-width: 140px;
+  text-align: center;
+  font-weight: 900;
+  letter-spacing: 0.2px;
+}
+
+/* Calendar outer */
+.calendarWrap{
+  margin-top: 14px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(0,0,0,0.18);
+  overflow: hidden;
+}
+
+/* Weekdays row */
+.calendarWeekdays{
+  display:grid !important;
+  grid-template-columns: repeat(7, 1fr) !important;
+  background: rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.calendarWeekdays div{
+  padding: 12px 8px;
+  font-size: 12px;
+  font-weight: 900;
+  color: rgba(255,255,255,0.70);
+  text-align: center;
+  letter-spacing: 0.35px;
+}
+
+/* Grid */
+.calendarGrid{
+  display:grid !important;
+  grid-template-columns: repeat(7, 1fr) !important;
+  width: 100%;
+}
+
+/* Day cell */
+.calDay{
+  min-height: 110px;
+  padding: 10px;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  cursor: pointer;
+  position: relative;
+  transition: 0.18s ease;
+  background: rgba(0,0,0,0.00);
+}
+
+.calDay:hover{
+  background: rgba(59,130,246,0.10);
+  transform: translateY(-1px);
+}
+
+.calDay.mutedDay{
+  opacity: 0.35;
+}
+
+/* Day number (top-right) */
+.calDayNum{
+  font-weight: 1000;
+  font-size: 13px;
+  color: rgba(255,255,255,0.85);
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+/* Badge for scheduled posts */
+.calBadge{
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+
+  display: inline-flex;
+  gap: 7px;
+  align-items:center;
+
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 1000;
+
+  background: rgba(124,58,237,0.16);
+  border: 1px solid rgba(124,58,237,0.35);
+  color: rgba(255,255,255,0.92);
+
+  max-width: calc(100% - 20px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.calDot{
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(124,58,237,0.98);
+  box-shadow: 0 0 18px rgba(124,58,237,0.45);
+}
+
+.calDay.active{
+  outline: 2px solid rgba(124,58,237,0.55);
+  background: rgba(124,58,237,0.10);
+}
+
+/* Selected-day event box */
+.calDayBox{
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.05);
+}
+
+.calEvents{
+  margin-top: 10px;
+  display: grid;
+  gap: 10px;
+}
+
+.calEventItem{
+  border-radius: 16px;
+  padding: 12px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(0,0,0,0.18);
+}
+
+.calEventItem .title{
+  font-weight: 1000;
+  font-size: 13px;
+  letter-spacing: 0.2px;
+}
+
+.calEventItem .meta{
+  margin-top: 4px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.55);
+}
+
+/* Mobile calendar */
+@media(max-width: 900px){
+  .calendarWeekdays div{
+    padding: 10px 4px;
+    font-size: 11px;
+  }
+
+  .calDay{
+    min-height: 90px;
+    padding: 8px;
+  }
+}
+/* ✅ Sidebar Divider */
+.navDivider{
+  margin: 14px 6px 8px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.35px;
+  color: rgba(255,255,255,0.42);
+}
+
+/* ✅ MVP Demo Cards */
+.mvpShowCard{
+  border-radius: 20px;
+  padding: 22px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.06);
+  box-shadow: 0 18px 60px rgba(0,0,0,0.25);
+}
+
+.mvpShowCard h3{
+  margin: 0;
+  font-size: 20px;
+}
+
+.mvpBullets{
+  margin-top: 14px;
+  font-weight: 800;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.80);
+}
+
+.mvpFakeChart{
+  margin-top: 18px;
+  padding: 16px;
+  border-radius: 18px;
+  border: 1px dashed rgba(255,255,255,0.18);
+  background: rgba(0,0,0,0.22);
+  font-weight: 900;
+  color: rgba(255,255,255,0.70);
+}
